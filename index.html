@@ -1,0 +1,1942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CREASE — Premium Cricket Equipment</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5F0E8;
+    --dark: #0D0D0B;
+    --pitch: #2C4A1E;
+    --gold: #C9A84C;
+    --red: #C0392B;
+    --warm-gray: #7A7268;
+    --light-tan: #E8DEC8;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--dark);
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--gold);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.15s ease, width 0.2s, height 0.2s;
+    transform: translate(-50%, -50%);
+  }
+  .cursor-follower {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(201,168,76,0.5);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9998;
+    transition: transform 0.35s ease;
+    transform: translate(-50%, -50%);
+  }
+  a:hover ~ .cursor, button:hover ~ .cursor { transform: translate(-50%,-50%) scale(2); }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 28px 60px;
+    mix-blend-mode: normal;
+  }
+  nav::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, rgba(13,13,11,0.9) 0%, transparent 100%);
+    pointer-events: none;
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.2rem;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    text-decoration: none;
+    position: relative;
+  }
+  .nav-logo span { color: var(--cream); }
+  .nav-links { display: flex; gap: 40px; list-style: none; position: relative; }
+  .nav-links a {
+    color: var(--cream);
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+  .nav-links a:hover { opacity: 1; color: var(--gold); }
+  .nav-cart {
+    background: var(--gold);
+    color: var(--dark);
+    border: none;
+    padding: 12px 28px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: none;
+    transition: background 0.2s, transform 0.2s;
+    position: relative;
+  }
+  .nav-cart:hover { background: var(--cream); transform: translateY(-1px); }
+  .cart-count {
+    display: inline-block;
+    background: var(--red);
+    color: white;
+    border-radius: 50%;
+    width: 18px; height: 18px;
+    font-size: 0.65rem;
+    text-align: center;
+    line-height: 18px;
+    margin-left: 6px;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 160px 60px 80px;
+    position: relative;
+    z-index: 2;
+  }
+  .hero-eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+    animation: fadeUp 1s ease both 0.2s;
+  }
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(5rem, 10vw, 9rem);
+    line-height: 0.9;
+    letter-spacing: 0.02em;
+    animation: fadeUp 1s ease both 0.4s;
+  }
+  .hero-title em {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: var(--gold);
+    display: block;
+  }
+  .hero-sub {
+    margin-top: 32px;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: rgba(245,240,232,0.6);
+    max-width: 380px;
+    animation: fadeUp 1s ease both 0.6s;
+  }
+  .hero-cta {
+    display: flex; gap: 16px;
+    margin-top: 48px;
+    animation: fadeUp 1s ease both 0.8s;
+  }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--dark);
+    border: none;
+    padding: 16px 40px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: none;
+    font-weight: 500;
+    transition: background 0.2s, transform 0.2s;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--cream); transform: translateY(-2px); }
+  .btn-outline {
+    background: transparent;
+    color: var(--cream);
+    border: 1px solid rgba(245,240,232,0.3);
+    padding: 16px 40px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: none;
+    transition: border-color 0.2s, color 0.2s, transform 0.2s;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-img-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 70% 50%, rgba(44,74,30,0.4) 0%, transparent 60%),
+      linear-gradient(135deg, #1a2a10 0%, #0d1a08 50%, #050805 100%);
+  }
+  .hero-graphic {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 420px; height: 420px;
+    animation: float 6s ease-in-out infinite;
+  }
+  .cricket-ball-svg {
+    width: 100%; height: 100%;
+    filter: drop-shadow(0 40px 80px rgba(192,57,43,0.4));
+  }
+  .hero-scroll-hint {
+    position: absolute;
+    bottom: 40px; left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.4);
+    z-index: 10;
+    display: flex; flex-direction: column; align-items: center; gap: 12px;
+    animation: fadeUp 1s ease both 1.2s;
+  }
+  .scroll-line {
+    width: 1px; height: 50px;
+    background: linear-gradient(to bottom, rgba(201,168,76,0.8), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  /* TICKER */
+  .ticker {
+    background: var(--gold);
+    padding: 14px 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .ticker-inner {
+    display: inline-flex;
+    animation: ticker 20s linear infinite;
+  }
+  .ticker-item {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.15em;
+    color: var(--dark);
+    padding: 0 40px;
+  }
+  .ticker-dot { color: var(--pitch); }
+
+  /* FEATURED PRODUCTS */
+  .section-header {
+    display: flex; align-items: baseline; justify-content: space-between;
+    padding: 80px 60px 48px;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    letter-spacing: 0.05em;
+    line-height: 1;
+  }
+  .section-title em {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: var(--gold);
+  }
+  .section-link {
+    color: var(--gold);
+    text-decoration: none;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(201,168,76,0.4);
+    padding-bottom: 2px;
+    transition: border-color 0.2s;
+  }
+  .section-link:hover { border-color: var(--gold); }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    padding: 0 60px 80px;
+  }
+  .product-card {
+    background: #141410;
+    position: relative;
+    overflow: hidden;
+    cursor: none;
+    group: true;
+  }
+  .product-card:first-child {
+    grid-row: span 2;
+  }
+  .product-img {
+    aspect-ratio: 3/4;
+    background: linear-gradient(135deg, #1c1c18, #252520);
+    position: relative;
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.6s ease;
+  }
+  .product-card:first-child .product-img { aspect-ratio: auto; height: 100%; min-height: 600px; }
+  .product-card:hover .product-img { transform: scale(1.04); }
+  .product-icon {
+    font-size: 5rem;
+    opacity: 0.15;
+    transition: opacity 0.4s, transform 0.6s;
+    user-select: none;
+  }
+  .product-card:hover .product-icon { opacity: 0.3; transform: scale(1.1) rotate(-5deg); }
+  .product-svg {
+    width: 55%; height: auto;
+    opacity: 0.85;
+    transition: transform 0.6s ease, opacity 0.4s;
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5));
+  }
+  .product-card:hover .product-svg { transform: translateY(-8px) scale(1.05); opacity: 1; }
+  .product-badge {
+    position: absolute;
+    top: 20px; left: 20px;
+    background: var(--red);
+    color: white;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+  }
+  .product-badge.new { background: var(--pitch); }
+  .product-badge.sale { background: var(--red); }
+  .product-info {
+    padding: 24px;
+    border-top: 1px solid rgba(245,240,232,0.06);
+  }
+  .product-category {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .product-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    margin-bottom: 4px;
+  }
+  .product-brand {
+    font-size: 0.75rem;
+    color: var(--warm-gray);
+    margin-bottom: 16px;
+  }
+  .product-footer {
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .product-price {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--cream);
+  }
+  .product-price .old { font-size: 0.85rem; color: var(--warm-gray); text-decoration: line-through; margin-right: 8px; }
+  .add-btn {
+    background: transparent;
+    border: 1px solid rgba(201,168,76,0.4);
+    color: var(--gold);
+    padding: 10px 20px;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: none;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+  }
+  .add-btn:hover { background: var(--gold); color: var(--dark); border-color: var(--gold); }
+
+  /* CATEGORIES STRIP */
+  .categories {
+    padding: 0 60px 80px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .cat-card {
+    position: relative;
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    cursor: none;
+  }
+  .cat-bg {
+    position: absolute; inset: 0;
+    transition: transform 0.6s ease;
+  }
+  .cat-card:hover .cat-bg { transform: scale(1.06); }
+  .cat-bg-1 { background: linear-gradient(160deg, #1a3a0e 0%, #0d2008 100%); }
+  .cat-bg-2 { background: linear-gradient(160deg, #2a1a08 0%, #180e04 100%); }
+  .cat-bg-3 { background: linear-gradient(160deg, #1a0808 0%, #2a0a0a 100%); }
+  .cat-bg-4 { background: linear-gradient(160deg, #0a0a1a 0%, #141428 100%); }
+  .cat-icon {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4rem;
+    opacity: 0.12;
+    transition: opacity 0.4s, transform 0.5s;
+  }
+  .cat-card:hover .cat-icon { opacity: 0.22; transform: translate(-50%, -55%); }
+  .cat-content {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 28px 24px;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%);
+  }
+  .cat-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.05em;
+    display: block;
+  }
+  .cat-count {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.5);
+  }
+
+  /* BRAND STRIP */
+  .brands-section {
+    border-top: 1px solid rgba(245,240,232,0.08);
+    border-bottom: 1px solid rgba(245,240,232,0.08);
+    padding: 48px 60px;
+  }
+  .brands-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--warm-gray);
+    margin-bottom: 32px;
+    text-align: center;
+  }
+  .brands-grid {
+    display: flex; align-items: center; justify-content: space-between; gap: 40px;
+    flex-wrap: wrap;
+  }
+  .brand-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 0.1em;
+    color: rgba(245,240,232,0.15);
+    transition: color 0.3s;
+    cursor: none;
+  }
+  .brand-name:hover { color: var(--gold); }
+
+  /* TESTIMONIAL */
+  .testimonial-section {
+    padding: 100px 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .testimonial-visual {
+    position: relative;
+    height: 500px;
+  }
+  .t-card {
+    position: absolute;
+    background: #141410;
+    border: 1px solid rgba(245,240,232,0.08);
+    padding: 32px;
+  }
+  .t-card:first-child { width: 75%; top: 0; left: 0; z-index: 2; }
+  .t-card:last-child { width: 65%; bottom: 0; right: 0; z-index: 1; background: var(--pitch); }
+  .t-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    line-height: 1.7;
+    color: var(--cream);
+    margin-bottom: 24px;
+  }
+  .t-author { display: flex; align-items: center; gap: 14px; }
+  .t-avatar {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 600;
+    color: var(--dark);
+    font-size: 1rem;
+  }
+  .t-name { font-size: 0.85rem; font-weight: 500; }
+  .t-role { font-size: 0.7rem; color: var(--warm-gray); }
+  .stars { color: var(--gold); font-size: 0.75rem; margin-bottom: 16px; letter-spacing: 2px; }
+
+  .testimonial-text { }
+  .big-quote {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 8rem;
+    line-height: 0.8;
+    color: rgba(201,168,76,0.12);
+    margin-bottom: -20px;
+  }
+  .testimonial-heading {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
+    letter-spacing: 0.03em;
+    line-height: 1.05;
+    margin-bottom: 20px;
+  }
+  .testimonial-heading em { font-family: 'Playfair Display', serif; font-style: italic; color: var(--gold); }
+  .testimonial-body {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: rgba(245,240,232,0.6);
+    margin-bottom: 40px;
+  }
+  .stats-row { display: flex; gap: 48px; }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.8rem;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--warm-gray);
+  }
+
+  /* NEWSLETTER */
+  .newsletter {
+    margin: 0 60px 80px;
+    background: linear-gradient(135deg, var(--pitch) 0%, #1a3a0e 100%);
+    padding: 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .newsletter::before {
+    content: 'CREASE';
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16rem;
+    position: absolute;
+    right: -40px; top: -20px;
+    color: rgba(255,255,255,0.04);
+    letter-spacing: 0.1em;
+    pointer-events: none;
+  }
+  .nl-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    letter-spacing: 0.03em;
+    line-height: 1.05;
+  }
+  .nl-sub {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: rgba(245,240,232,0.7);
+    margin-top: 16px;
+  }
+  .nl-form { display: flex; flex-direction: column; gap: 16px; position: relative; z-index: 1; }
+  .nl-input {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: var(--cream);
+    padding: 16px 24px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .nl-input::placeholder { color: rgba(245,240,232,0.4); }
+  .nl-input:focus { border-color: var(--gold); }
+  .nl-submit {
+    background: var(--gold);
+    color: var(--dark);
+    border: none;
+    padding: 16px 40px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: none;
+    transition: background 0.2s;
+    align-self: flex-start;
+  }
+  .nl-submit:hover { background: var(--cream); }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid rgba(245,240,232,0.08);
+    padding: 60px;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 60px;
+  }
+  .footer-brand .nav-logo { display: block; margin-bottom: 20px; font-size: 2rem; }
+  .footer-brand p {
+    font-size: 0.85rem;
+    line-height: 1.8;
+    color: rgba(245,240,232,0.5);
+    max-width: 280px;
+  }
+  .footer-col h4 {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 12px; }
+  .footer-col a {
+    color: rgba(245,240,232,0.5);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.2s;
+  }
+  .footer-col a:hover { color: var(--cream); }
+  .footer-bottom {
+    border-top: 1px solid rgba(245,240,232,0.06);
+    margin: 0 60px;
+    padding: 24px 0;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-bottom p { font-size: 0.75rem; color: rgba(245,240,232,0.3); }
+  .footer-socials { display: flex; gap: 20px; }
+  .footer-socials a {
+    color: rgba(245,240,232,0.3);
+    text-decoration: none;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .footer-socials a:hover { color: var(--gold); }
+
+  /* CART PANEL */
+  .cart-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 200;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .cart-overlay.open { opacity: 1; pointer-events: all; }
+  .cart-panel {
+    position: fixed;
+    top: 0; right: 0; bottom: 0;
+    width: 420px;
+    background: #141410;
+    border-left: 1px solid rgba(245,240,232,0.08);
+    z-index: 201;
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex; flex-direction: column;
+  }
+  .cart-overlay.open .cart-panel { transform: translateX(0); }
+  .cart-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 32px;
+    border-bottom: 1px solid rgba(245,240,232,0.08);
+  }
+  .cart-header h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.05em;
+  }
+  .cart-close {
+    background: none; border: none;
+    color: var(--cream); font-size: 1.4rem;
+    cursor: none; opacity: 0.5;
+    transition: opacity 0.2s;
+  }
+  .cart-close:hover { opacity: 1; }
+  .cart-items { flex: 1; overflow-y: auto; padding: 24px 32px; }
+  .cart-item {
+    display: flex; gap: 16px;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(245,240,232,0.06);
+  }
+  .cart-item-img {
+    width: 70px; height: 90px;
+    background: #1c1c18;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2rem; flex-shrink: 0;
+  }
+  .cart-item-info { flex: 1; }
+  .cart-item-name { font-size: 0.9rem; font-weight: 500; margin-bottom: 4px; }
+  .cart-item-brand { font-size: 0.75rem; color: var(--warm-gray); margin-bottom: 12px; }
+  .cart-item-row { display: flex; justify-content: space-between; align-items: center; }
+  .qty-controls { display: flex; align-items: center; gap: 12px; }
+  .qty-btn {
+    background: rgba(245,240,232,0.08);
+    border: none; color: var(--cream);
+    width: 28px; height: 28px;
+    cursor: none; font-size: 1rem;
+    transition: background 0.2s;
+  }
+  .qty-btn:hover { background: var(--gold); color: var(--dark); }
+  .qty-num { font-size: 0.85rem; min-width: 20px; text-align: center; }
+  .cart-item-price { font-size: 0.95rem; font-weight: 500; }
+  .remove-btn {
+    background: none; border: none;
+    color: rgba(245,240,232,0.3); font-size: 1rem;
+    cursor: none; margin-left: 8px;
+    transition: color 0.2s;
+  }
+  .remove-btn:hover { color: var(--red); }
+  .cart-footer {
+    padding: 24px 32px;
+    border-top: 1px solid rgba(245,240,232,0.08);
+  }
+  .cart-total {
+    display: flex; justify-content: space-between;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+  .cart-checkout {
+    width: 100%;
+    background: var(--gold);
+    color: var(--dark);
+    border: none;
+    padding: 18px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: none;
+    transition: background 0.2s;
+  }
+  .cart-checkout:hover { background: var(--cream); }
+  .cart-empty {
+    text-align: center;
+    padding: 60px 32px;
+    color: rgba(245,240,232,0.4);
+  }
+  .cart-empty-icon { font-size: 4rem; margin-bottom: 16px; opacity: 0.3; }
+  .cart-empty p { font-size: 0.9rem; }
+
+  /* TOAST */
+  .toast {
+    position: fixed;
+    bottom: 40px; left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--pitch);
+    border: 1px solid rgba(201,168,76,0.3);
+    color: var(--cream);
+    padding: 14px 28px;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    z-index: 300;
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+    pointer-events: none;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* IPL JERSEYS SECTION */
+  .ipl-section { padding: 0 60px 80px; }
+  .ipl-hero-banner {
+    background: linear-gradient(135deg, #1a0a0a 0%, #2a0808 40%, #0a0a1a 100%);
+    border: 1px solid rgba(201,168,76,0.15);
+    padding: 60px;
+    margin-bottom: 48px;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 60px;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .ipl-hero-banner::before {
+    content: 'IPL';
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20rem;
+    position: absolute;
+    right: -20px; top: -40px;
+    color: rgba(201,168,76,0.04);
+    pointer-events: none;
+    line-height: 1;
+  }
+  .ipl-hero-text { position: relative; z-index: 1; }
+  .ipl-eyebrow {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .ipl-eyebrow::before { content: ''; display: block; width: 32px; height: 1px; background: var(--gold); }
+  .ipl-hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 5vw, 5rem);
+    letter-spacing: 0.03em;
+    line-height: 0.95;
+    margin-bottom: 20px;
+  }
+  .ipl-hero-title em { font-family: 'Playfair Display', serif; font-style: italic; color: var(--gold); }
+  .ipl-hero-desc { font-size: 0.95rem; line-height: 1.8; color: rgba(245,240,232,0.6); margin-bottom: 32px; }
+
+  /* FEATURED — RCB SIGNED JERSEY */
+  .rcb-signed-card {
+    background: linear-gradient(160deg, #1a0505 0%, #2d0808 50%, #150303 100%);
+    border: 1px solid rgba(201,168,76,0.3);
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    cursor: none;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .rcb-signed-card:hover { border-color: var(--gold); transform: translateY(-4px); }
+  .rcb-signed-card::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 60% 40%, rgba(192,57,43,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .signed-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--gold);
+    color: var(--dark);
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    margin-bottom: 24px;
+  }
+  .signed-badge svg { width: 12px; height: 12px; }
+  .rcb-jersey-display {
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px 0 32px;
+    position: relative;
+  }
+  .rcb-jersey-display .jersey-svg { width: 200px; filter: drop-shadow(0 20px 60px rgba(192,57,43,0.5)); }
+  .signature-overlay {
+    position: absolute;
+    bottom: 28px; right: 20px;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.6rem;
+    color: rgba(201,168,76,0.9);
+    transform: rotate(-8deg);
+    text-shadow: 0 2px 12px rgba(201,168,76,0.4);
+    letter-spacing: 0.02em;
+  }
+  .cert-seal {
+    position: absolute;
+    top: 16px; right: 16px;
+    width: 64px; height: 64px;
+  }
+  .rcb-signed-info { border-top: 1px solid rgba(201,168,76,0.15); padding-top: 24px; }
+  .rcb-signed-info .product-category { color: var(--gold); }
+  .rcb-signed-info .product-name { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 8px; }
+  .rcb-price-row { display: flex; align-items: center; justify-content: space-between; margin-top: 16px; }
+  .rcb-price { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--gold); }
+  .rcb-price small { font-family: 'DM Sans', sans-serif; font-size: 0.75rem; color: var(--warm-gray); display: block; }
+
+  /* IPL JERSEY GRID */
+  .ipl-jersey-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2px;
+    margin-top: 2px;
+  }
+  .jersey-card {
+    position: relative;
+    overflow: hidden;
+    cursor: none;
+    transition: transform 0.3s;
+  }
+  .jersey-card:hover { transform: translateY(-4px); z-index: 2; }
+  .jersey-img-wrap {
+    aspect-ratio: 3/4;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .jersey-card:hover .jersey-svg { transform: scale(1.08) translateY(-6px); filter: drop-shadow(0 24px 48px rgba(0,0,0,0.7)); }
+  .jersey-svg { width: 65%; transition: transform 0.5s ease, filter 0.4s ease; filter: drop-shadow(0 16px 32px rgba(0,0,0,0.5)); }
+  .jersey-team-badge {
+    position: absolute;
+    top: 14px; left: 14px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.05em;
+    line-height: 1;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+  }
+  .jersey-info {
+    padding: 18px 20px;
+    border-top: 1px solid rgba(245,240,232,0.05);
+  }
+  .jersey-team-name { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
+  .jersey-desc { font-family: 'Playfair Display', serif; font-size: 0.95rem; margin-bottom: 12px; }
+  .jersey-footer { display: flex; justify-content: space-between; align-items: center; }
+  .jersey-price { font-size: 1rem; font-weight: 500; }
+  .jersey-btn {
+    background: transparent;
+    border: 1px solid rgba(245,240,232,0.15);
+    color: var(--cream);
+    padding: 8px 16px;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: none;
+    transition: all 0.2s;
+  }
+  .jersey-btn:hover { background: var(--gold); border-color: var(--gold); color: var(--dark); }
+
+  /* Team bg colours */
+  .team-rcb { background: linear-gradient(160deg, #1a0404 0%, #2d0606 100%); }
+  .team-csk { background: linear-gradient(160deg, #1a1400 0%, #2d2300 100%); }
+  .team-mi  { background: linear-gradient(160deg, #020820 0%, #04122e 100%); }
+  .team-kkr { background: linear-gradient(160deg, #0e0020 0%, #1a0038 100%); }
+  .team-srh { background: linear-gradient(160deg, #1a0a00 0%, #2d1200 100%); }
+  .team-dc  { background: linear-gradient(160deg, #000a1a 0%, #00152e 100%); }
+  .team-pbks{ background: linear-gradient(160deg, #1a0404 0%, #2d0808 100%); }
+  .team-rr  { background: linear-gradient(160deg, #160014 0%, #260024 100%); }
+  .team-gt  { background: linear-gradient(160deg, #001a18 0%, #002e28 100%); }
+  .team-lsg { background: linear-gradient(160deg, #001018 0%, #001a28 100%); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translate(-50%, -50%) translateY(0); }
+    50% { transform: translate(-50%, -50%) translateY(-20px); }
+  }
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 20px 24px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-right { height: 60vw; }
+    .hero-left { padding: 120px 24px 60px; }
+    .ipl-hero-banner { grid-template-columns: 1fr; padding: 32px; gap: 32px; }
+    .ipl-jersey-grid { grid-template-columns: repeat(2, 1fr); }
+    .ipl-section { padding: 0 24px 60px; }
+    .products-grid { grid-template-columns: 1fr 1fr; padding: 0 24px 60px; }
+    .product-card:first-child { grid-row: span 1; }
+    .product-card:first-child .product-img { min-height: auto; }
+    .categories { grid-template-columns: 1fr 1fr; padding: 0 24px 60px; }
+    .section-header { padding: 60px 24px 32px; }
+    .testimonial-section { grid-template-columns: 1fr; padding: 60px 24px; gap: 40px; }
+    .testimonial-visual { height: 350px; }
+    .newsletter { margin: 0 24px 60px; padding: 40px; grid-template-columns: 1fr; gap: 32px; }
+    .newsletter::before { display: none; }
+    footer { grid-template-columns: 1fr 1fr; padding: 40px 24px; gap: 32px; }
+    .footer-bottom { margin: 0 24px; }
+    .brands-section { padding: 40px 24px; }
+    .cart-panel { width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-follower" id="follower"></div>
+
+<!-- CART OVERLAY -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCartOnOverlay(event)">
+  <div class="cart-panel">
+    <div class="cart-header">
+      <h3>Your Bag</h3>
+      <button class="cart-close" onclick="toggleCart()">✕</button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <div class="cart-empty" id="cartEmpty">
+        <div class="cart-empty-icon">🏏</div>
+        <p>Your bag is empty.<br>Time to gear up.</p>
+      </div>
+    </div>
+    <div class="cart-footer" id="cartFooter" style="display:none">
+      <div class="cart-total">
+        <span>Total</span>
+        <span id="cartTotalAmount">₹0</span>
+      </div>
+      <button class="cart-checkout" onclick="checkout()">Proceed to Checkout</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">CREASE<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#products">Bats</a></li>
+    <li><a href="#products">Balls</a></li>
+    <li><a href="#categories">Equipment</a></li>
+    <li><a href="#jerseys">IPL Jerseys</a></li>
+    <li><a href="#categories">Apparel</a></li>
+    <li><a href="#brands">Brands</a></li>
+  </ul>
+  <button class="nav-cart" onclick="toggleCart()">
+    Bag <span class="cart-count" id="cartCount">0</span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">New Season Collection 2025</p>
+    <h1 class="hero-title">
+      Play<br>
+      <em>Like a</em><br>
+      Legend
+    </h1>
+    <p class="hero-sub">
+      Equipment forged for champions. Premium bats, balls, and gear trusted by professionals across the subcontinent.
+    </p>
+    <div class="hero-cta">
+      <a href="#products" class="btn-primary">Shop Collection</a>
+      <a href="#categories" class="btn-outline">Explore Gear</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img-bg"></div>
+    <div class="hero-graphic">
+      <svg class="cricket-ball-svg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="ballGrad" cx="35%" cy="30%">
+            <stop offset="0%" stop-color="#e84444"/>
+            <stop offset="50%" stop-color="#c0392b"/>
+            <stop offset="100%" stop-color="#6b1010"/>
+          </radialGradient>
+          <radialGradient id="shimmer" cx="30%" cy="25%">
+            <stop offset="0%" stop-color="rgba(255,255,255,0.3)"/>
+            <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+          </radialGradient>
+        </defs>
+        <circle cx="200" cy="200" r="185" fill="url(#ballGrad)"/>
+        <circle cx="200" cy="200" r="185" fill="url(#shimmer)"/>
+        <!-- Seam -->
+        <path d="M 60 200 Q 130 100 200 200 Q 270 300 340 200" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="3"/>
+        <path d="M 60 200 Q 130 300 200 200 Q 270 100 340 200" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="3"/>
+        <!-- Seam stitches -->
+        <g stroke="rgba(255,220,180,0.8)" stroke-width="1.5" fill="none">
+          <line x1="90" y1="165" x2="105" y2="175"/>
+          <line x1="115" y1="140" x2="130" y2="152"/>
+          <line x1="145" y1="122" x2="158" y2="136"/>
+          <line x1="175" y1="115" x2="186" y2="130"/>
+          <line x1="215" y1="270" x2="226" y2="285"/>
+          <line x1="242" y1="265" x2="255" y2="278"/>
+          <line x1="268" y1="252" x2="282" y2="264"/>
+          <line x1="295" y1="235" x2="310" y2="225"/>
+        </g>
+        <!-- Shine -->
+        <ellipse cx="145" cy="145" rx="40" ry="28" fill="rgba(255,255,255,0.12)" transform="rotate(-30,145,145)"/>
+      </svg>
+    </div>
+    <div class="hero-scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner" id="ticker">
+    <span class="ticker-item">FREE SHIPPING ABOVE ₹2,999 <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">ENGLISH WILLOW BATS <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">SG · KOOKABURRA · MRF · SS · GRAY-NICOLLS <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">EMI AVAILABLE ON ORDERS ABOVE ₹5,000 <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">PRO PLAYERS TRUST CREASE <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">FREE SHIPPING ABOVE ₹2,999 <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">ENGLISH WILLOW BATS <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">SG · KOOKABURRA · MRF · SS · GRAY-NICOLLS <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">EMI AVAILABLE ON ORDERS ABOVE ₹5,000 <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">PRO PLAYERS TRUST CREASE <span class="ticker-dot">✦</span></span>
+  </div>
+</div>
+
+<!-- FEATURED PRODUCTS -->
+<section id="products">
+  <div class="section-header">
+    <h2 class="section-title">Featured <em>Gear</em></h2>
+    <a href="#" class="section-link">View All Products →</a>
+  </div>
+  <div class="products-grid">
+
+    <!-- Card 1: Featured Bat -->
+    <div class="product-card" onclick="addToCart('SG Sunny Tonny Xtreme', 'SG', 18999, '🏏')">
+      <div class="product-img">
+        <svg class="product-svg" viewBox="0 0 120 320" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="batGrad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#c8a96e"/>
+              <stop offset="50%" stop-color="#f0d898"/>
+              <stop offset="100%" stop-color="#a07840"/>
+            </linearGradient>
+          </defs>
+          <!-- Blade -->
+          <path d="M 25 80 Q 20 200 22 240 L 58 260 L 94 240 Q 96 200 91 80 Z" fill="url(#batGrad)"/>
+          <!-- Sweet spot shine -->
+          <ellipse cx="58" cy="170" rx="22" ry="35" fill="rgba(255,255,255,0.12)"/>
+          <!-- Spine -->
+          <line x1="58" y1="85" x2="58" y2="255" stroke="rgba(100,60,20,0.5)" stroke-width="4"/>
+          <!-- Handle -->
+          <rect x="50" y="10" width="16" height="75" rx="4" fill="#4a2c10"/>
+          <!-- Grip lines -->
+          <g stroke="rgba(255,255,255,0.2)" stroke-width="1.5">
+            <line x1="50" y1="20" x2="66" y2="20"/><line x1="50" y1="27" x2="66" y2="27"/>
+            <line x1="50" y1="34" x2="66" y2="34"/><line x1="50" y1="41" x2="66" y2="41"/>
+            <line x1="50" y1="48" x2="66" y2="48"/><line x1="50" y1="55" x2="66" y2="55"/>
+            <line x1="50" y1="62" x2="66" y2="62"/><line x1="50" y1="69" x2="66" y2="69"/>
+          </g>
+        </svg>
+        <div class="product-badge new">NEW</div>
+      </div>
+      <div class="product-info">
+        <div class="product-category">English Willow</div>
+        <div class="product-name">Sunny Tonny Xtreme</div>
+        <div class="product-brand">SG Cricket</div>
+        <div class="product-footer">
+          <div class="product-price">₹18,999</div>
+          <button class="add-btn">Add to Bag</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2: Ball -->
+    <div class="product-card" onclick="addToCart('Kookaburra Tuf Pitch Ball', 'Kookaburra', 899, '🔴')">
+      <div class="product-img">
+        <svg class="product-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="ballGrad2" cx="35%" cy="30%">
+              <stop offset="0%" stop-color="#e05050"/>
+              <stop offset="60%" stop-color="#c0392b"/>
+              <stop offset="100%" stop-color="#7a1010"/>
+            </radialGradient>
+          </defs>
+          <circle cx="100" cy="100" r="88" fill="url(#ballGrad2)"/>
+          <path d="M 25 100 Q 65 55 100 100 Q 135 145 175 100" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2.5"/>
+          <path d="M 25 100 Q 65 145 100 100 Q 135 55 175 100" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2.5"/>
+          <ellipse cx="75" cy="72" rx="18" ry="12" fill="rgba(255,255,255,0.1)" transform="rotate(-20,75,72)"/>
+        </svg>
+        <div class="product-badge">BESTSELLER</div>
+      </div>
+      <div class="product-info">
+        <div class="product-category">Match Ball</div>
+        <div class="product-name">Tuf Pitch Red</div>
+        <div class="product-brand">Kookaburra</div>
+        <div class="product-footer">
+          <div class="product-price">₹899</div>
+          <button class="add-btn">Add to Bag</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3: Gloves -->
+    <div class="product-card" onclick="addToCart('SS Batting Gloves Pro', 'SS', 2499, '🧤')">
+      <div class="product-img">
+        <svg class="product-svg" viewBox="0 0 180 220" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="gloveGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#d4af6e"/>
+              <stop offset="100%" stop-color="#8a6a30"/>
+            </linearGradient>
+          </defs>
+          <!-- Palm -->
+          <path d="M 30 130 Q 28 80 40 60 L 60 40 Q 70 30 80 40 L 90 55 Q 100 30 108 40 L 118 55 Q 126 28 134 40 L 140 60 Q 150 80 148 130 Q 145 180 90 195 Q 35 180 30 130 Z" fill="url(#gloveGrad)"/>
+          <!-- Fingers highlight -->
+          <path d="M 60 40 Q 70 30 80 40 L 90 55" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+          <path d="M 100 30 Q 108 22 118 30 L 118 55" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="2"/>
+          <!-- Wrist guard -->
+          <rect x="28" y="130" width="122" height="50" rx="8" fill="#1a1a14" opacity="0.5"/>
+          <rect x="35" y="140" width="108" height="8" rx="4" fill="var(--gold)" opacity="0.6"/>
+          <!-- Knuckle rolls -->
+          <ellipse cx="68" cy="58" rx="14" ry="8" fill="rgba(255,255,255,0.12)" transform="rotate(-15,68,58)"/>
+          <ellipse cx="110" cy="55" rx="12" ry="7" fill="rgba(255,255,255,0.10)" transform="rotate(-10,110,55)"/>
+        </svg>
+      </div>
+      <div class="product-info">
+        <div class="product-category">Batting Gloves</div>
+        <div class="product-name">Pro Batting Gloves</div>
+        <div class="product-brand">SS Cricket</div>
+        <div class="product-footer">
+          <div class="product-price">
+            <span class="old">₹3,199</span>₹2,499
+          </div>
+          <button class="add-btn">Add to Bag</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4: Helmet -->
+    <div class="product-card" onclick="addToCart('MRF Genius Grand Edition Helmet', 'MRF', 5999, '⛑️')">
+      <div class="product-img">
+        <svg class="product-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="helmetGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#2a2a24"/>
+              <stop offset="100%" stop-color="#111110"/>
+            </linearGradient>
+          </defs>
+          <!-- Shell -->
+          <path d="M 20 120 Q 18 60 100 30 Q 182 60 180 120 L 175 140 Q 170 160 100 165 Q 30 160 25 140 Z" fill="url(#helmetGrad)"/>
+          <!-- Visor -->
+          <path d="M 30 135 Q 28 155 100 162 Q 172 155 170 135 L 165 125 Q 100 140 35 125 Z" fill="#1a1a14"/>
+          <!-- Face grill bars -->
+          <g stroke="var(--gold)" stroke-width="2.5" opacity="0.8">
+            <line x1="55" y1="145" x2="55" y2="195"/>
+            <line x1="75" y1="148" x2="75" y2="198"/>
+            <line x1="95" y1="150" x2="95" y2="200"/>
+            <line x1="115" y1="150" x2="115" y2="200"/>
+            <line x1="135" y1="148" x2="135" y2="198"/>
+            <line x1="155" y1="145" x2="155" y2="195"/>
+            <path d="M 48 168 Q 100 180 152 168" fill="none" stroke-width="2"/>
+          </g>
+          <!-- Shine on shell -->
+          <ellipse cx="80" cy="68" rx="30" ry="18" fill="rgba(255,255,255,0.06)" transform="rotate(-20,80,68)"/>
+          <!-- Logo mark -->
+          <text x="100" y="108" text-anchor="middle" font-family="Bebas Neue" font-size="14" fill="var(--gold)" opacity="0.6">MRF</text>
+        </svg>
+        <div class="product-badge new">2025</div>
+      </div>
+      <div class="product-info">
+        <div class="product-category">Protective Gear</div>
+        <div class="product-name">Genius Grand Edition</div>
+        <div class="product-brand">MRF Cricket</div>
+        <div class="product-footer">
+          <div class="product-price">₹5,999</div>
+          <button class="add-btn">Add to Bag</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 5: Pads -->
+    <div class="product-card" onclick="addToCart('Gray-Nicolls Omega XRD Pads', 'Gray-Nicolls', 4499, '🦵')">
+      <div class="product-img">
+        <svg class="product-svg" viewBox="0 0 130 280" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="padGrad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#e8e0d0"/>
+              <stop offset="100%" stop-color="#c0b898"/>
+            </linearGradient>
+          </defs>
+          <rect x="20" y="20" width="90" height="240" rx="18" fill="url(#padGrad)"/>
+          <!-- Horizontal rolls -->
+          <g fill="rgba(100,80,40,0.15)">
+            <ellipse cx="65" cy="60" rx="40" ry="16"/><ellipse cx="65" cy="95" rx="40" ry="16"/>
+            <ellipse cx="65" cy="130" rx="40" ry="16"/><ellipse cx="65" cy="165" rx="40" ry="16"/>
+            <ellipse cx="65" cy="200" rx="40" ry="16"/><ellipse cx="65" cy="235" rx="40" ry="16"/>
+          </g>
+          <!-- Straps -->
+          <rect x="8" y="70" width="14" height="8" rx="3" fill="#8B7355"/>
+          <rect x="108" y="70" width="14" height="8" rx="3" fill="#8B7355"/>
+          <rect x="8" y="155" width="14" height="8" rx="3" fill="#8B7355"/>
+          <rect x="108" y="155" width="14" height="8" rx="3" fill="#8B7355"/>
+          <!-- Shine -->
+          <ellipse cx="45" cy="80" rx="10" ry="25" fill="rgba(255,255,255,0.2)" transform="rotate(-5,45,80)"/>
+        </svg>
+        <div class="product-badge sale">SALE</div>
+      </div>
+      <div class="product-info">
+        <div class="product-category">Batting Pads</div>
+        <div class="product-name">Omega XRD Pads</div>
+        <div class="product-brand">Gray-Nicolls</div>
+        <div class="product-footer">
+          <div class="product-price">
+            <span class="old">₹6,200</span>₹4,499
+          </div>
+          <button class="add-btn">Add to Bag</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- IPL JERSEYS -->
+<section id="jerseys">
+  <div class="section-header">
+    <h2 class="section-title">IPL <em>Jerseys</em></h2>
+    <a href="#" class="section-link">View All Jerseys →</a>
+  </div>
+  <div class="ipl-section">
+
+    <!-- FEATURED RCB SIGNED BANNER -->
+    <div class="ipl-hero-banner">
+      <div class="ipl-hero-text">
+        <div class="ipl-eyebrow">Limited Edition · Certificate of Authenticity Included</div>
+        <h3 class="ipl-hero-title">Signed by <em>Virat Kohli</em></h3>
+        <p class="ipl-hero-desc">The most coveted collectible in Indian cricket. An official RCB home jersey hand-signed by Virat Kohli — authenticated, numbered, and sealed. Only 18 remain in stock.</p>
+        <div style="display:flex;gap:16px;flex-wrap:wrap">
+          <button class="btn-primary" onclick="addToCart('RCB Signed Jersey — Virat Kohli #18','Royal Challengers Bengaluru',89999,'🏆')">Add to Bag — ₹89,999</button>
+          <a href="#" class="btn-outline">View Certificate</a>
+        </div>
+      </div>
+
+      <!-- RCB Signed Jersey Visual -->
+      <div class="rcb-signed-card">
+        <div class="signed-badge">
+          <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 1l1.2 2.5 2.8.4-2 2 .5 2.8L6 7.5 3.5 8.7 4 5.9l-2-2 2.8-.4L6 1z" fill="currentColor"/></svg>
+          Authenticated Signature · COA #VK18-2025
+        </div>
+
+        <!-- RCB Jersey SVG -->
+        <div class="rcb-jersey-display">
+          <svg class="jersey-svg" viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="rcbMainGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#c0392b"/>
+                <stop offset="50%" stop-color="#a93226"/>
+                <stop offset="100%" stop-color="#7b241c"/>
+              </linearGradient>
+              <linearGradient id="rcbBlackPanel" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#1a1a1a"/>
+                <stop offset="100%" stop-color="#2d2d2d"/>
+              </linearGradient>
+            </defs>
+            <!-- Body -->
+            <path d="M 40 60 L 10 90 L 30 100 L 30 220 L 170 220 L 170 100 L 190 90 L 160 60 L 140 40 Q 100 30 60 40 Z" fill="url(#rcbMainGrad)"/>
+            <!-- Collar -->
+            <path d="M 75 40 Q 100 55 125 40 L 120 48 Q 100 62 80 48 Z" fill="url(#rcbBlackPanel)"/>
+            <!-- Left sleeve -->
+            <path d="M 40 60 L 10 90 L 30 100 L 45 75 Z" fill="url(#rcbBlackPanel)"/>
+            <!-- Right sleeve -->
+            <path d="M 160 60 L 190 90 L 170 100 L 155 75 Z" fill="url(#rcbBlackPanel)"/>
+            <!-- Gold trim on sleeves -->
+            <line x1="43" y1="63" x2="12" y2="91" stroke="#C9A84C" stroke-width="1.5"/>
+            <line x1="157" y1="63" x2="188" y2="91" stroke="#C9A84C" stroke-width="1.5"/>
+            <!-- Gold side panel lines -->
+            <path d="M 30 110 L 30 220" stroke="#C9A84C" stroke-width="2"/>
+            <path d="M 170 110 L 170 220" stroke="#C9A84C" stroke-width="2"/>
+            <!-- Number 18 -->
+            <text x="100" y="165" text-anchor="middle" font-family="Bebas Neue, Arial" font-size="48" fill="rgba(201,168,76,0.9)" font-weight="900">18</text>
+            <!-- RCB Logo area -->
+            <circle cx="100" cy="90" r="18" fill="rgba(0,0,0,0.4)"/>
+            <text x="100" y="95" text-anchor="middle" font-family="Bebas Neue, Arial" font-size="11" fill="#C9A84C" font-weight="bold">RCB</text>
+            <!-- Shine -->
+            <ellipse cx="70" cy="80" rx="20" ry="35" fill="rgba(255,255,255,0.06)" transform="rotate(-10,70,80)"/>
+          </svg>
+          <!-- Signature -->
+          <div class="signature-overlay">Virat Kohli</div>
+          <!-- Auth seal SVG -->
+          <svg class="cert-seal" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="32,4 38,18 54,18 42,28 47,44 32,35 17,44 22,28 10,18 26,18" fill="none" stroke="#C9A84C" stroke-width="1.5" opacity="0.7"/>
+            <text x="32" y="35" text-anchor="middle" font-family="Bebas Neue" font-size="7" fill="#C9A84C" opacity="0.9">AUTHENTIC</text>
+          </svg>
+        </div>
+
+        <div class="rcb-signed-info">
+          <div class="product-category">Official IPL Collectible · Limited Edition</div>
+          <div class="product-name">RCB Home Jersey 2025 — Signed</div>
+          <div style="font-size:0.8rem;color:rgba(245,240,232,0.5);margin-top:6px">Hand-signed by Virat Kohli · Numbered edition · COA included</div>
+          <div class="rcb-price-row">
+            <div class="rcb-price">₹89,999 <small>Only 18 remaining</small></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IPL TEAM JERSEYS GRID -->
+    <div class="ipl-jersey-grid">
+
+      <!-- RCB -->
+      <div class="jersey-card team-rcb" onclick="addToCart('RCB Home Jersey 2025','Royal Challengers Bengaluru',2499,'🔴')">
+        <div class="jersey-img-wrap">
+          <div class="jersey-team-badge" style="color:#e84040">RCB</div>
+          <svg class="jersey-svg" viewBox="0 0 160 200" xmlns="http://www.w3.org/2000/svg">
+            <defs><linearGradient id="rcbJ" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#c0392b"/><stop offset="100%" stop-color="#7b241c"/></linearGradient></defs>
+            <path d="M 30 48 L 8 72 L 24 80 L 24 185 L 136 185 L 136 80 L 152 72 L 130 48 L 112 32 Q 80 22 48 32 Z" fill="url(#rcbJ)"/>
+            <path d="M 30 48 L 8 72 L 24 80 L 36 60 Z" fill="#111"/>
+            <path d="M 130 48 L 152 72 L 136 80 L 124 60 Z" fill="#111"/>
+            <path d="M 60 32 Q 80 44 100 32 L 96 39 Q 80 50 64 39 Z" fill="#111"/>
+            <line x1="32" y1="50" x2="9" y2="70" stroke="#C9A84C" stroke-width="1.2"/>
+            <line x1="128" y1="50" x2="151" y2="70" stroke="#C9A84C" stroke-width="1.2"/>
+            <text x="80" y="140" text-anchor="middle" font-family="Bebas Neue" font-size="38" fill="rgba(201,168,76,0.85)">18</text>
+            <circle cx="80" cy="72" r="13" fill="rgba(0,0,0,0.4)"/><text x="80" y="77" text-anchor="middle" font-family="Bebas Neue" font-size="8" fill="#C9A84C">RCB</text>
+          </svg>
+        </div>
+        <div class="jersey-info">
+          <div class="jersey-team-name">Royal Challengers</div>
+          <div class="jersey-desc">Home Jersey 2025</div>
+          <div class="jersey-footer">
+            <span class="jersey-price">₹2,499</span>
+            <button class="jersey-btn">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- CSK -->
+      <div class="jersey-card team-csk" onclick="addToCart('CSK Home Jersey 2025','Chennai Super Kings',2299,'💛')">
+        <div class="jersey-img-wrap">
+          <div class="jersey-team-badge" style="color:#f5c518">CSK</div>
+          <svg class="jersey-svg" viewBox="0 0 160 200" xmlns="http://www.w3.org/2000/svg">
+            <defs><linearGradient id="cskJ" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f5c518"/><stop offset="100%" stop-color="#c9a00a"/></linearGradient></defs>
+            <path d="M 30 48 L 8 72 L 24 80 L 24 185 L 136 185 L 136 80 L 152 72 L 130 48 L 112 32 Q 80 22 48 32 Z" fill="url(#cskJ)"/>
+            <path d="M 30 48 L 8 72 L 24 80 L 36 60 Z" fill="#0a2a5a"/>
+            <path d="M 130 48 L 152 72 L 136 80 L 124 60 Z" fill="#0a2a5a"/>
+            <path d="M 60 32 Q 80 44 100 32 L 96 39 Q 80 50 64 39 Z" fill="#0a2a5a"/>
+            <text x="80" y="140" text-anchor="middle" font-family="Bebas Neue" font-size="38" fill="rgba(10,42,90,0.7)">7</text>
+            <circle cx="80" cy="72" r="13" fill="rgba(10,42,90,0.5)"/><text x="80" y="77" text-anchor="middle" font-family="Bebas Neue" font-size="8" fill="#f5c518">CSK</text>
+          </svg>
+        </div>
+        <div class="jersey-info">
+          <div class="jersey-team-name">Chennai Super Kings</div>
+          <div class="jersey-desc">Home Jersey 2025</div>
+          <div class="jersey-footer">
+            <span class="jersey-price">₹2,299</span>
+            <button class="jersey-btn">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- MI -->
+      <div class="jersey-card team-mi" onclick="addToCart('MI Home Jersey 2025','Mumbai Indians',2299,'💙')">
+        <div class="jersey-img-wrap">
+          <div class="jersey-team-badge" style="color:#0070c0">MI</div>
+          <svg class="jersey-svg" viewBox="0 0 160 200" xmlns="http://www.w3.org/2000/svg">
+            <defs><linearGradient id="miJ" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#003f8a"/><stop offset="100%" stop-color="#001f4a"/></linearGradient></defs>
+            <path d="M 30 48 L 8 72 L 24 80 L 24 185 L 136 185 L 136 80 L 152 72 L 130 48 L 112 32 Q 80 22 48 32 Z" fill="url(#miJ)"/>
+            <path d="M 30 48 L 8 72 L 24 80 L 36 60 Z" fill="#c9a00a"/>
+            <path d="M 130 48 L 152 72 L 136 80 L 124 60 Z" fill="#c9a00a"/>
+            <path d="M 60 32 Q 80 44 100 32 L 96 39 Q 80 50 64 39 Z" fill="#111"/>
+            <line x1="32" y1="50" x2="9" y2="70" stroke="#c9a00a" stroke-width="1.2"/>
+            <line x1="128" y1="50" x2="151" y2="70" stroke="#c9a00a" stroke-width="1.2"/>
+            <text x="80" y="140" text-anchor="middle" font-family="Bebas Neue" font-size="38" fill="rgba(201,160,10,0.7)">45</text>
+            <circle cx="80" cy="72" r="13" fill="rgba(201,160,10,0.3)"/><text x="80" y="77" text-anchor="middle" font-family="Bebas Neue" font-size="9" fill="#c9a00a">MI</text>
+          </svg>
+        </div>
+        <div class="jersey-info">
+          <div class="jersey-team-name">Mumbai Indians</div>
+          <div class="jersey-desc">Home Jersey 2025</div>
+          <div class="jersey-footer">
+            <span class="jersey-price">₹2,299</span>
+            <button class="jersey-btn">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- KKR -->
+      <div class="jersey-card team-kkr" onclick="addToCart('KKR Home Jersey 2025','Kolkata Knight Riders',2199,'💜')">
+        <div class="jersey-img-wrap">
+          <div class="jersey-team-badge" style="color:#c9a84c">KKR</div>
+          <svg class="jersey-svg" viewBox="0 0 160 200" xmlns="http://www.w3.org/2000/svg">
+            <defs><linearGradient id="kkrJ" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#3d0060"/><stop offset="100%" stop-color="#1a0030"/></linearGradient></defs>
+            <path d="M 30 48 L 8 72 L 24 80 L 24 185 L 136 185 L 136 80 L 152 72 L 130 48 L 112 32 Q 80 22 48 32 Z" fill="url(#kkrJ)"/>
+            <path d="M 30 48 L 8 72 L 24 80 L 36 60 Z" fill="#c9a84c"/>
+            <path d="M 130 48 L 152 72 L 136 80 L 124 60 Z" fill="#c9a84c"/>
+            <path d="M 60 32 Q 80 44 100 32 L 96 39 Q 80 50 64 39 Z" fill="#1a0030"/>
+            <text x="80" y="140" text-anchor="middle" font-family="Bebas Neue" font-size="38" fill="rgba(201,168,76,0.7)">12</text>
+            <circle cx="80" cy="72" r="13" fill="rgba(201,168,76,0.2)"/><text x="80" y="77" text-anchor="middle" font-family="Bebas Neue" font-size="8" fill="#c9a84c">KKR</text>
+          </svg>
+        </div>
+        <div class="jersey-info">
+          <div class="jersey-team-name">Kolkata Knight Riders</div>
+          <div class="jersey-desc">Home Jersey 2025</div>
+          <div class="jersey-footer">
+            <span class="jersey-price">₹2,199</span>
+            <button class="jersey-btn">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SRH -->
+      <div class="jersey-card team-srh" onclick="addToCart('SRH Home Jersey 2025','Sunrisers Hyderabad',2199,'🧡')">
+        <div class="jersey-img-wrap">
+          <div class="jersey-team-badge" style="color:#ff6900">SRH</div>
+          <svg class="jersey-svg" viewBox="0 0 160 200" xmlns="http://www.w3.org/2000/svg">
+            <defs><linearGradient id="srhJ" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff6900"/><stop offset="100%" stop-color="#c04800"/></linearGradient></defs>
+            <path d="M 30 48 L 8 72 L 24 80 L 24 185 L 136 185 L 136 80 L 152 72 L 130 48 L 112 32 Q 80 22 48 32 Z" fill="url(#srhJ)"/>
+            <path d="M 30 48 L 8 72 L 24 80 L 36 60 Z" fill="#1a0800"/>
+            <path d="M 130 48 L 152 72 L 136 80 L 124 60 Z" fill="#1a0800"/>
+            <path d="M 60 32 Q 80 44 100 32 L 96 39 Q 80 50 64 39 Z" fill="#1a0800"/>
+            <text x="80" y="140" text-anchor="middle" font-family="Bebas Neue" font-size="38" fill="rgba(0,0,0,0.4)">9</text>
+            <circle cx="80" cy="72" r="13" fill="rgba(0,0,0,0.35)"/><text x="80" y="77" text-anchor="middle" font-family="Bebas Neue" font-size="8" fill="#fff">SRH</text>
+          </svg>
+        </div>
+        <div class="jersey-info">
+          <div class="jersey-team-name">Sunrisers Hyderabad</div>
+          <div class="jersey-desc">Home Jersey 2025</div>
+          <div class="jersey-footer">
+            <span class="jersey-price">₹2,199</span>
+            <button class="jersey-btn">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- DC -->
+      <div class="jersey-card team-dc" onclick="addToCart('DC Home Jersey 2025','Delhi Capitals',2199,'🔵')">
+        <div class="jersey-img-wrap">
+          <div class="jersey-team-badge" style="color:#0057a8">DC</div>
+          <svg class="jersey-svg" viewBox="0 0 160 200" xmlns="http://www.w3.org/2000/svg">
+            <defs><linearGradient id="dcJ" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#0057a8"/><stop offset="100%" stop-color="#002855"/></linearGradient></defs>
+            <path d="M 30 48 L 8 72 L 24 80 L 24 185 L 136 185 L 136 80 L 152 72 L 130 48 L 112 32 Q 80 22 48 32 Z" fill="url(#dcJ)"/>
+            <path d="M 30 48 L 8 72 L 24 80 L 36 60 Z" fill="#cc2229"/>
+            <path d="M 130 48 L 152 72 L 136 80 L 124 60 Z" fill="#cc2229"/>
+            <path d="M 60 32 Q 80 44 100 32 L 96 39 Q 80 50 64 39 Z" fill="#002855"/>
+            <text x="80" y="140" text-anchor="middle" font-family="Bebas Neue" font-size="38" fill="rgba(204,34,41,0.6)">17</text>
+            <circle cx="80" cy="72" r="13" fill="rgba(204,34,41,0.4)"/><text x="80" y="77" text-anchor="middle" font-family="Bebas Neue" font-size="9" fill="#fff">DC</text>
+          </svg>
+        </div>
+        <div class="jersey-info">
+          <div class="jersey-team-name">Delhi Capitals</div>
+          <div class="jersey-desc">Home Jersey 2025</div>
+          <div class="jersey-footer">
+            <span class="jersey-price">₹2,199</span>
+            <button class="jersey-btn">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PBKS -->
+      <div class="jersey-card team-pbks" onclick="addToCart('PBKS Home Jersey 2025','Punjab Kings',2099,'❤️')">
+        <div class="jersey-img-wrap">
+          <div class="jersey-team-badge" style="color:#e8192c">PBKS</div>
+          <svg class="jersey-svg" viewBox="0 0 160 200" xmlns="http://www.w3.org/2000/svg">
+            <defs><linearGradient id="pbksJ" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#d4192c"/><stop offset="100%" stop-color="#8a0a1a"/></linearGradient></defs>
+            <path d="M 30 48 L 8 72 L 24 80 L 24 185 L 136 185 L 136 80 L 152 72 L 130 48 L 112 32 Q 80 22 48 32 Z" fill="url(#pbksJ)"/>
+            <path d="M 30 48 L 8 72 L 24 80 L 36 60 Z" fill="#f5f5f5"/>
+            <path d="M 130 48 L 152 72 L 136 80 L 124 60 Z" fill="#f5f5f5"/>
+            <path d="M 60 32 Q 80 44 100 32 L 96 39 Q 80 50 64 39 Z" fill="#1a1a1a"/>
+            <text x="80" y="140" text-anchor="middle" font-family="Bebas Neue" font-size="38" fill="rgba(245,245,245,0.5)">1</text>
+            <circle cx="80" cy="72" r="13" fill="rgba(0,0,0,0.4)"/><text x="80" y="77" text-anchor="middle" font-family="Bebas Neue" font-size="7" fill="#f5c518">PBKS</text>
+          </svg>
+        </div>
+        <div class="jersey-info">
+          <div class="jersey-team-name">Punjab Kings</div>
+          <div class="jersey-desc">Home Jersey 2025</div>
+          <div class="jersey-footer">
+            <span class="jersey-price">₹2,099</span>
+            <button class="jersey-btn">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- RR -->
+      <div class="jersey-card team-rr" onclick="addToCart('RR Home Jersey 2025','Rajasthan Royals',2299,'💗')">
+        <div class="jersey-img-wrap">
+          <div class="jersey-team-badge" style="color:#e8189a">RR</div>
+          <svg class="jersey-svg" viewBox="0 0 160 200" xmlns="http://www.w3.org/2000/svg">
+            <defs><linearGradient id="rrJ" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#e8189a"/><stop offset="100%" stop-color="#800055"/></linearGradient></defs>
+            <path d="M 30 48 L 8 72 L 24 80 L 24 185 L 136 185 L 136 80 L 152 72 L 130 48 L 112 32 Q 80 22 48 32 Z" fill="url(#rrJ)"/>
+            <path d="M 30 48 L 8 72 L 24 80 L 36 60 Z" fill="#003366"/>
+            <path d="M 130 48 L 152 72 L 136 80 L 124 60 Z" fill="#003366"/>
+            <path d="M 60 32 Q 80 44 100 32 L 96 39 Q 80 50 64 39 Z" fill="#1a1a1a"/>
+            <text x="80" y="140" text-anchor="middle" font-family="Bebas Neue" font-size="38" fill="rgba(0,51,102,0.6)">3</text>
+            <circle cx="80" cy="72" r="13" fill="rgba(0,51,102,0.5)"/><text x="80" y="77" text-anchor="middle" font-family="Bebas Neue" font-size="9" fill="#f5c518">RR</text>
+          </svg>
+        </div>
+        <div class="jersey-info">
+          <div class="jersey-team-name">Rajasthan Royals</div>
+          <div class="jersey-desc">Home Jersey 2025</div>
+          <div class="jersey-footer">
+            <span class="jersey-price">₹2,299</span>
+            <button class="jersey-btn">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- GT -->
+      <div class="jersey-card team-gt" onclick="addToCart('GT Home Jersey 2025','Gujarat Titans',2199,'💚')">
+        <div class="jersey-img-wrap">
+          <div class="jersey-team-badge" style="color:#1c9c7e">GT</div>
+          <svg class="jersey-svg" viewBox="0 0 160 200" xmlns="http://www.w3.org/2000/svg">
+            <defs><linearGradient id="gtJ" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#0e6b58"/><stop offset="100%" stop-color="#063828"/></linearGradient></defs>
+            <path d="M 30 48 L 8 72 L 24 80 L 24 185 L 136 185 L 136 80 L 152 72 L 130 48 L 112 32 Q 80 22 48 32 Z" fill="url(#gtJ)"/>
+            <path d="M 30 48 L 8 72 L 24 80 L 36 60 Z" fill="#0a0a2a"/>
+            <path d="M 130 48 L 152 72 L 136 80 L 124 60 Z" fill="#0a0a2a"/>
+            <path d="M 60 32 Q 80 44 100 32 L 96 39 Q 80 50 64 39 Z" fill="#0a0a2a"/>
+            <line x1="32" y1="50" x2="9" y2="70" stroke="#c9a84c" stroke-width="1.2"/>
+            <line x1="128" y1="50" x2="151" y2="70" stroke="#c9a84c" stroke-width="1.2"/>
+            <text x="80" y="140" text-anchor="middle" font-family="Bebas Neue" font-size="38" fill="rgba(201,168,76,0.6)">77</text>
+            <circle cx="80" cy="72" r="13" fill="rgba(201,168,76,0.2)"/><text x="80" y="77" text-anchor="middle" font-family="Bebas Neue" font-size="9" fill="#c9a84c">GT</text>
+          </svg>
+        </div>
+        <div class="jersey-info">
+          <div class="jersey-team-name">Gujarat Titans</div>
+          <div class="jersey-desc">Home Jersey 2025</div>
+          <div class="jersey-footer">
+            <span class="jersey-price">₹2,199</span>
+            <button class="jersey-btn">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- LSG -->
+      <div class="jersey-card team-lsg" onclick="addToCart('LSG Home Jersey 2025','Lucknow Super Giants',2099,'🩵')">
+        <div class="jersey-img-wrap">
+          <div class="jersey-team-badge" style="color:#00b4d8">LSG</div>
+          <svg class="jersey-svg" viewBox="0 0 160 200" xmlns="http://www.w3.org/2000/svg">
+            <defs><linearGradient id="lsgJ" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#006ea8"/><stop offset="100%" stop-color="#003050"/></linearGradient></defs>
+            <path d="M 30 48 L 8 72 L 24 80 L 24 185 L 136 185 L 136 80 L 152 72 L 130 48 L 112 32 Q 80 22 48 32 Z" fill="url(#lsgJ)"/>
+            <path d="M 30 48 L 8 72 L 24 80 L 36 60 Z" fill="#00b4d8"/>
+            <path d="M 130 48 L 152 72 L 136 80 L 124 60 Z" fill="#00b4d8"/>
+            <path d="M 60 32 Q 80 44 100 32 L 96 39 Q 80 50 64 39 Z" fill="#003050"/>
+            <text x="80" y="140" text-anchor="middle" font-family="Bebas Neue" font-size="38" fill="rgba(0,180,216,0.5)">27</text>
+            <circle cx="80" cy="72" r="13" fill="rgba(0,180,216,0.25)"/><text x="80" y="77" text-anchor="middle" font-family="Bebas Neue" font-size="8" fill="#00b4d8">LSG</text>
+          </svg>
+        </div>
+        <div class="jersey-info">
+          <div class="jersey-team-name">Lucknow Super Giants</div>
+          <div class="jersey-desc">Home Jersey 2025</div>
+          <div class="jersey-footer">
+            <span class="jersey-price">₹2,099</span>
+            <button class="jersey-btn">Add</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end ipl-jersey-grid -->
+  </div><!-- end ipl-section -->
+</section>
+
+<!-- CATEGORIES -->
+<section id="categories">
+  <div class="section-header">
+    <h2 class="section-title">Shop by <em>Category</em></h2>
+  </div>
+  <div class="categories">
+    <div class="cat-card" onclick="showToast('Browsing Batting Equipment...')">
+      <div class="cat-bg cat-bg-1"></div>
+      <div class="cat-icon">🏏</div>
+      <div class="cat-content">
+        <span class="cat-name">Batting</span>
+        <span class="cat-count">142 products</span>
+      </div>
+    </div>
+    <div class="cat-card" onclick="showToast('Browsing Bowling Equipment...')">
+      <div class="cat-bg cat-bg-2"></div>
+      <div class="cat-icon">🔴</div>
+      <div class="cat-content">
+        <span class="cat-name">Bowling</span>
+        <span class="cat-count">68 products</span>
+      </div>
+    </div>
+    <div class="cat-card" onclick="showToast('Browsing Protective Gear...')">
+      <div class="cat-bg cat-bg-3"></div>
+      <div class="cat-icon">⛑️</div>
+      <div class="cat-content">
+        <span class="cat-name">Protection</span>
+        <span class="cat-count">95 products</span>
+      </div>
+    </div>
+    <div class="cat-card" onclick="showToast('Browsing Cricket Apparel...')">
+      <div class="cat-bg cat-bg-4"></div>
+      <div class="cat-icon">👕</div>
+      <div class="cat-content">
+        <span class="cat-name">Apparel</span>
+        <span class="cat-count">210 products</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRANDS -->
+<section class="brands-section" id="brands">
+  <p class="brands-label">Trusted Brands We Carry</p>
+  <div class="brands-grid">
+    <span class="brand-name">SG</span>
+    <span class="brand-name">KOOKABURRA</span>
+    <span class="brand-name">MRF</span>
+    <span class="brand-name">SS</span>
+    <span class="brand-name">GRAY-NICOLLS</span>
+    <span class="brand-name">ADIDAS</span>
+    <span class="brand-name">PUMA</span>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonial-section">
+  <div class="testimonial-visual">
+    <div class="t-card">
+      <div class="stars">★ ★ ★ ★ ★</div>
+      <p class="t-quote">"The SG Nexus bat I got from Crease lasted two full seasons. The willow quality is something else — proper English willow, not the usual stuff."</p>
+      <div class="t-author">
+        <div class="t-avatar">RV</div>
+        <div>
+          <div class="t-name">Rohit Venkatesh</div>
+          <div class="t-role">State Cricketer, Karnataka</div>
+        </div>
+      </div>
+    </div>
+    <div class="t-card">
+      <div class="stars">★ ★ ★ ★ ★</div>
+      <p class="t-quote">"Fastest delivery I've ever seen for cricket equipment. The packaging was incredible and the helmet fit perfectly."</p>
+      <div class="t-author">
+        <div class="t-avatar">AK</div>
+        <div>
+          <div class="t-name">Arjun Kamath</div>
+          <div class="t-role">Club Captain, Mumbai</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="testimonial-text">
+    <div class="big-quote">"</div>
+    <h2 class="testimonial-heading">Gear That <em>Performs</em> Under Pressure</h2>
+    <p class="testimonial-body">From first-day covers to Ranji Trophy pitches, thousands of cricketers across India trust CREASE for equipment that doesn't let them down when the match is on the line.</p>
+    <div class="stats-row">
+      <div>
+        <div class="stat-num">50K+</div>
+        <div class="stat-label">Happy Players</div>
+      </div>
+      <div>
+        <div class="stat-num">12+</div>
+        <div class="stat-label">Top Brands</div>
+      </div>
+      <div>
+        <div class="stat-num">4.9★</div>
+        <div class="stat-label">Avg Rating</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<div class="newsletter">
+  <div>
+    <h3 class="nl-title">Get Early Access to New Drops</h3>
+    <p class="nl-sub">Join 30,000+ cricketers who get first access to limited editions, exclusive discounts, and gear reviews.</p>
+  </div>
+  <div class="nl-form">
+    <input type="email" class="nl-input" placeholder="Your email address" id="nlEmail"/>
+    <input type="text" class="nl-input" placeholder="Your name (optional)" id="nlName"/>
+    <button class="nl-submit" onclick="subscribe()">Join the Team</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <a href="#" class="nav-logo">CREASE<span>.</span></a>
+    <p>India's finest cricket equipment store. Curating professional-grade gear for the game's true believers since 2015.</p>
+  </div>
+  <div class="footer-col">
+    <h4>Shop</h4>
+    <ul>
+      <li><a href="#">Batting Bats</a></li>
+      <li><a href="#">Cricket Balls</a></li>
+      <li><a href="#">Helmets & Pads</a></li>
+      <li><a href="#">Gloves</a></li>
+      <li><a href="#">Apparel</a></li>
+      <li><a href="#">Accessories</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h4>Company</h4>
+    <ul>
+      <li><a href="#">About CREASE</a></li>
+      <li><a href="#">Our Story</a></li>
+      <li><a href="#">Careers</a></li>
+      <li><a href="#">Press</a></li>
+      <li><a href="#">Blog</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h4>Support</h4>
+    <ul>
+      <li><a href="#">Track Order</a></li>
+      <li><a href="#">Returns</a></li>
+      <li><a href="#">Size Guide</a></li>
+      <li><a href="#">Contact Us</a></li>
+      <li><a href="#">FAQs</a></li>
+    </ul>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <p>© 2025 CREASE Cricket. All rights reserved. Made in India.</p>
+  <div class="footer-socials">
+    <a href="#">Instagram</a>
+    <a href="#">Twitter</a>
+    <a href="#">YouTube</a>
+  </div>
+</div>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const follower = document.getElementById('follower');
+  let fx = 0, fy = 0, cx = 0, cy = 0;
+  document.addEventListener('mousemove', e => {
+    cx = e.clientX; cy = e.clientY;
+    cursor.style.left = cx + 'px';
+    cursor.style.top = cy + 'px';
+  });
+  (function followCursor() {
+    fx += (cx - fx) * 0.12;
+    fy += (cy - fy) * 0.12;
+    follower.style.left = fx + 'px';
+    follower.style.top = fy + 'px';
+    requestAnimationFrame(followCursor);
+  })();
+
+  // Cart state
+  let cart = [];
+  function addToCart(name, brand, price, icon) {
+    const existing = cart.find(i => i.name === name);
+    if (existing) {
+      existing.qty++;
+    } else {
+      cart.push({ name, brand, price, icon, qty: 1 });
+    }
+    updateCart();
+    showToast(`${name} added to bag!`);
+  }
+
+  function updateCart() {
+    const count = cart.reduce((s, i) => s + i.qty, 0);
+    document.getElementById('cartCount').textContent = count;
+    const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+    document.getElementById('cartTotalAmount').textContent = '₹' + total.toLocaleString('en-IN');
+
+    const itemsEl = document.getElementById('cartItems');
+    const empty = document.getElementById('cartEmpty');
+    const footer = document.getElementById('cartFooter');
+
+    if (cart.length === 0) {
+      empty.style.display = '';
+      footer.style.display = 'none';
+      itemsEl.innerHTML = '';
+      itemsEl.appendChild(empty);
+      return;
+    }
+    empty.style.display = 'none';
+    footer.style.display = '';
+
+    const existing = itemsEl.querySelectorAll('.cart-item');
+    existing.forEach(e => e.remove());
+
+    cart.forEach((item, idx) => {
+      const el = document.createElement('div');
+      el.className = 'cart-item';
+      el.innerHTML = `
+        <div class="cart-item-img">${item.icon}</div>
+        <div class="cart-item-info">
+          <div class="cart-item-name">${item.name}</div>
+          <div class="cart-item-brand">${item.brand}</div>
+          <div class="cart-item-row">
+            <div class="qty-controls">
+              <button class="qty-btn" onclick="changeQty(${idx},-1)">−</button>
+              <span class="qty-num">${item.qty}</span>
+              <button class="qty-btn" onclick="changeQty(${idx},1)">+</button>
+            </div>
+            <div style="display:flex;align-items:center">
+              <span class="cart-item-price">₹${(item.price * item.qty).toLocaleString('en-IN')}</span>
+              <button class="remove-btn" onclick="removeItem(${idx})">✕</button>
+            </div>
+          </div>
+        </div>
+      `;
+      itemsEl.appendChild(el);
+    });
+  }
+
+  function changeQty(idx, delta) {
+    cart[idx].qty += delta;
+    if (cart[idx].qty <= 0) cart.splice(idx, 1);
+    updateCart();
+  }
+  function removeItem(idx) { cart.splice(idx, 1); updateCart(); }
+
+  function toggleCart() {
+    document.getElementById('cartOverlay').classList.toggle('open');
+  }
+  function closeCartOnOverlay(e) {
+    if (e.target === document.getElementById('cartOverlay')) toggleCart();
+  }
+
+  function checkout() {
+    if (cart.length === 0) return;
+    showToast('Proceeding to checkout...');
+    setTimeout(() => {
+      cart = [];
+      updateCart();
+      toggleCart();
+      showToast('Thank you for your order! 🏏');
+    }, 1500);
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => t.classList.remove('show'), 2500);
+  }
+
+  function subscribe() {
+    const email = document.getElementById('nlEmail').value;
+    if (!email || !email.includes('@')) { showToast('Please enter a valid email.'); return; }
+    showToast('Welcome to the team! 🏏');
+    document.getElementById('nlEmail').value = '';
+    document.getElementById('nlName').value = '';
+  }
+
+  // Intersection Observer for fade-in
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.product-card, .cat-card, .t-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
